@@ -1,46 +1,42 @@
 package com.example.Reports.Controllers;
 
+import com.example.Reports.Models.DTO.GetReportRequest;
 import com.example.Reports.Services.FileGeneratorKafkaProducer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("api/v1/reports_getter")
+@RequestMapping("/api/v1/reports_getter")
 @RequiredArgsConstructor
 public class GetFileController {
 
     private final FileGeneratorKafkaProducer fileGeneratorKafkaProducer;
 
-    @GetMapping("/single_day_report/{file_name}")
-    public ResponseEntity<String> getDayReport(@PathVariable("file_name") String fileName) {
-        String fileURL = "";
+    private final RedisTemplate redisTemplate;
 
-        //TODO
-
-        return ResponseEntity.ok(fileURL);
-    }
-
-    @GetMapping("/range_report/{file_name}")
-    public ResponseEntity<String> getRangeReport(@PathVariable("file_name") String fileName) {
-        String fileURL = "";
+    @GetMapping("/get_report_by_name")
+    public ResponseEntity<String> getDayReport(@RequestBody GetReportRequest getReportRequest) {
         String requestId = UUID.randomUUID().toString();
 
-        fileGeneratorKafkaProducer.sendGenerateFileRequest(requestId, fileName);
 
-        CompletableFuture<String> response = new CompletableFuture<String>();
 
-        return ResponseEntity.ok(fileURL);
+        fileGeneratorKafkaProducer.sendGenerateFileRequest(requestId, getReportRequest.getFilename());
+
+        return ResponseEntity.ok(getReportRequest.getFilename());
     }
 
+    @GetMapping("/range_report")
+    public ResponseEntity<String> getRangeReport(@RequestBody GetReportRequest getReportRequest) {
+        String requestId = UUID.randomUUID().toString();
 
+        fileGeneratorKafkaProducer.sendGenerateFileRequest(requestId, getReportRequest.getFilename());
 
-
+        return ResponseEntity.ok().build();
+    }
 
 }

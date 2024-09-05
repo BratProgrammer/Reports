@@ -24,8 +24,6 @@ public class JwtUtils {
     @Value("${reports.app.jwtExpirationMs}")
     private long lifetime;
 
-    @Value("${reports.app.jwtCookieName}")
-    private String jwtCookie;
 
 
     public String generateToken(Authentication authentication) {
@@ -61,7 +59,7 @@ public class JwtUtils {
 
 
     public String getNameFromJwt(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
 
