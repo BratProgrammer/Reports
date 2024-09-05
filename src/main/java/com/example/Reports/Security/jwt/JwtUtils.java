@@ -24,6 +24,8 @@ public class JwtUtils {
     @Value("${reports.app.jwtExpirationMs}")
     private long lifetime;
 
+    @Value("${reports.app.jwtCookieName}")
+    private String jwtCookie;
 
 
     public String generateToken(Authentication authentication) {
