@@ -2,6 +2,7 @@ package com.example.Reports.Services;
 
 import com.example.Reports.Models.DTO.FileGeneratingDto;
 import com.example.Reports.Security.userdetails.UserDetailsImpl;
+import com.example.Reports.Services.kafka.FileGeneratorKafkaProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,22 +17,15 @@ public class FileGenerateService {
 
     private final RedisService redisService;
 
-
     public void generateFileByName(String filename) {
         String requestId = UUID.randomUUID().toString();
 
         redisService.saveRequestData(new FileGeneratingDto(
                 requestId,
-                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername(),
-                filename
+                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()
         ));
 
         fileGeneratorKafkaProducer.sendGenerateFileRequest(requestId, filename);
     }
-
-
-
-
-
 
 }

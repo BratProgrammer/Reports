@@ -20,7 +20,7 @@ public class RedisService {
         return uuid;
     }
 
-    public FileGeneratingDto getSRequestData(String uuid) {
+    public FileGeneratingDto getRequestData(String uuid) {
         return (FileGeneratingDto) redisTemplate.opsForValue().get(uuid);
     }
 

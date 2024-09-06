@@ -11,6 +11,4 @@ public class FileGeneratingDto {
 
     private String username;
 
-    private String filename;
-
 }

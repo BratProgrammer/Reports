@@ -1,4 +1,4 @@
-package com.example.Reports.Services;
+package com.example.Reports.Services.kafka;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
