@@ -16,7 +16,7 @@ public class FileGeneratorKafkaListener {
 
     private final NotificationService notificationService;
 
-    @KafkaListener(topics = "file_created")
+    @KafkaListener(topics = "file_ready", groupId = "reports-group")
     private void fileCreatedListener(ConsumerRecord<String, String> record) {
         String uuid = record.key();
 
@@ -27,7 +27,7 @@ public class FileGeneratorKafkaListener {
         notificationService.sendFileCreatedNotification(requestData.getUsername(), record.value());
     }
 
-    @KafkaListener(topics = "file_creation_failed")
+    @KafkaListener(topics = "file_creation_failed", groupId = "reports-group")
     private void fileCreationFailedListener(ConsumerRecord<String, String> record) {
         String uuid = record.key();
 

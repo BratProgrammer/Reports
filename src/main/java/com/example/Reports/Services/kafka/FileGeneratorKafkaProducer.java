@@ -14,6 +14,4 @@ public class FileGeneratorKafkaProducer {
         kafkaTemplate.send("create_file", requestId, fileName);
     }
 
-
-
 }
