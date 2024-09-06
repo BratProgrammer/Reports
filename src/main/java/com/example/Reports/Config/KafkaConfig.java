@@ -16,6 +16,7 @@ public class KafkaConfig {
         return new NewTopic("file_ready", 1, (short) 1);
     }
 
+    @Bean
     public NewTopic fileCreationFailedTopic() {
         return new NewTopic("file_creation_failed", 1, (short) 1);
     }
