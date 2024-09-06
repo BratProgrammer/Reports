@@ -1,4 +1,4 @@
-package com.example.Reports.Models.DTO;
+package com.example.Reports.Models.DTO.Requests;
 
 import lombok.Data;
 

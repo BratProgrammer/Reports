@@ -1,6 +1,6 @@
 package com.example.Reports.Services;
 
-import com.example.Reports.Models.DTO.RegistrationRequest;
+import com.example.Reports.Models.DTO.Requests.RegistrationRequest;
 import com.example.Reports.Models.user.Role;
 import com.example.Reports.Models.user.User;
 import com.example.Reports.Repositories.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.Reports.Models.DTO;
+package com.example.Reports.Models.DTO.Responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.example.Reports.Controllers;
 
-import com.example.Reports.Models.DTO.AuthorizationRequest;
-import com.example.Reports.Models.DTO.RegistrationRequest;
+import com.example.Reports.Models.DTO.Requests.AuthorizationRequest;
+import com.example.Reports.Models.DTO.Requests.RegistrationRequest;
 import com.example.Reports.Security.jwt.JwtUtils;
 import com.example.Reports.Services.UserService;
 import lombok.RequiredArgsConstructor;
