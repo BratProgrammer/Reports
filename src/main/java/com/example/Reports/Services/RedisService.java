@@ -1,6 +1,7 @@
 package com.example.Reports.Services;
 
 import com.example.Reports.Models.DTO.FileGeneratingDto;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,19 @@ public class RedisService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    @PostConstruct
+    public void testRedisConnection() {
+        try {
+            redisTemplate.getConnectionFactory().getConnection().ping();
+            System.out.println("Connected to Redis");
+        } catch (Exception e) {
+            System.err.println("Cannot connect to Redis: " + e.getMessage());
+        }
+    }
+
+
     public String saveRequestData(FileGeneratingDto fileGeneratingData) {
-        String uuid = UUID.randomUUID().toString();
+        var uuid = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(uuid, fileGeneratingData, 24, TimeUnit.HOURS); // Сохраняем строку с TTL 10 минут
         return uuid;
     }
